@@ -1,6 +1,16 @@
+/*
+ * @Description:
+ * @version:
+ * @Author: lqj
+ * @Date: 2021-12-26 17:06:43
+ * @LastEditors: lqj
+ * @LastEditTime: 2021-12-30 22:51:49
+ */
+
 const http = require('http');
 const https = require('https');
 const cheerio = require('cheerio'); // 后端转成虚拟dom
+
 // 筛选数据函数
 function filterData(data) {
   // console.log('data: ', data);
