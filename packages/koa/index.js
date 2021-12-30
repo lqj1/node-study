@@ -13,3 +13,8 @@ app.use(async (ctx, next) => {
   const rt = ctx.response.get('X-Response-Time');
   console.log(`${ctx.method} ${ctx.url} ${rt}`);
 });
+// x-response-time
+app.use(async (ctx, next) => {
+  const start = Date.now()
+  await next();
+})
