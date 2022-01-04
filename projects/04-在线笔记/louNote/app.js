@@ -196,5 +196,5 @@ app.get('/detail/:_id', function (req, res) {
 
 app.listen(8080, function (req, res) {
   console.log(app.get('views'));
-  console.log('app is running at port 3000');
+  console.log('app is running at port 8080');
 });

@@ -4,8 +4,29 @@ const bodyParser = require('body-parser');
 const crypto = require('crypto');
 // 引入 mongoose
 const mongoose = require('mongoose');
-// 导入数据模型
-import { User, Article } from './models/models';
+// 引入模型并实例化
+let models = require('./models/models');
+let User = models.User;
+let Article = models.Article;
+// 引入建立session必备的模块
+let session = require('express-session');
+let MongoStore = require('connect-mongo')(session);
+// 建立session模型
+app.use(
+  session({
+    key: 'session',
+    secret: 'Keboard cat',
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 设置session保存时间为1天
+    // 连接mongoDB数据库必要设置
+    store: new MongoStore({
+      db: 'notes',
+      mongooseConnection: mongoose.connection,
+    }),
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 // 使用mongoose连接数据
 mongoose.connect('mongodb://localhost:27017/notes');
 mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
@@ -81,10 +102,36 @@ app.post('/reg', function (req, res) {
 app.get('/login', function (req, res) {
   res.render('login', {
     title: '登录',
+    user: req.session.user,
+    page: 'login',
   });
 });
 app.post('/login', function (req, res) {
   // ...
+  let username = req.body.username,
+    password = req.body.password;
+  User.findOne({ username: username }, function (err, user) {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    if (!user) {
+      console.log('用户不存在！');
+      return res.redirect('/login');
+    }
+    // 对密码进行md5加密
+    let md5 = crypto.createHash('md5'),
+      md5password = md5.update(password).digest('hex');
+    if (user.password !== md5password) {
+      console.log('密码错误！');
+      return res.redirect('/login');
+    }
+    console.log('登录成功！');
+    user.password = null;
+    delete user.password;
+    req.session.user = user;
+    return res.redirect('/');
+  });
 });
 app.get('/quit', function (req, res) {
   res.session.user = null; // 清除session

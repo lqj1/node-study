@@ -100,3 +100,6 @@ server2.on('request', function (req, res) {
   - 笔记列表
   - 笔记详情
   - 退出登录
+- 会话机制
+  - 建立 session 模型
+    > 在 Express 框架中需要安装两个模块 express-session 和 connect-mongo
