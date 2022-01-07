@@ -103,3 +103,12 @@ server2.on('request', function (req, res) {
 - 会话机制
   - 建立 session 模型
     > 在 Express 框架中需要安装两个模块 express-session 和 connect-mongo
+
+### 05.漂流瓶
+
+#### 项目简介
+
+- 主要使用 `Node.js (path,body-parser,crypto), redis, Express`
+  - 安装 redis: 下载安装包后，直接解压即可，将文件夹路径加入到系统环境变量，就可以直接运行了，`redis-server`启动
+    - 进入 redis 文件夹，执行`redis-server.exe redis.windows.conf`
+- drift 是参考源码，my-drift 是实践的项目

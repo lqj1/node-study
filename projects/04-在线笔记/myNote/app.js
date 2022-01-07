@@ -11,6 +11,12 @@ let Article = models.Article;
 // 引入建立session必备的模块
 let session = require('express-session');
 let MongoStore = require('connect-mongo')(session);
+
+// 使用mongoose连接数据
+mongoose.connect('mongodb://localhost:27017/notes');
+mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
+// 生成一个express实例
+const app = express();
 // 建立session模型
 app.use(
   session({
@@ -26,12 +32,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-// 使用mongoose连接数据
-mongoose.connect('mongodb://localhost:27017/notes');
-mongoose.connection.on('error', console.error.bind(console, '连接数据库失败'));
-// 生成一个express实例
-const app = express();
 // 设置视图文件存放目录
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -57,6 +57,7 @@ app.get('/reg', function (req, res) {
 });
 app.post('/reg', function (req, res) {
   // ...
+  // req.body
   let username = req.body.username,
     password = req.body.password,
     passwordRepeat = req.body.passwordRepeat;

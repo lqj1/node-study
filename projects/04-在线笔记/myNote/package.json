@@ -1,19 +1,21 @@
 {
-  "name": "mynote",
+  "name": "myNote",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "lqj",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.1",
-    "connect-mongo": "^4.6.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.2",
-    "express-session": "^1.17.2",
-    "mongoose": "^6.1.4"
+    "body-parser": "^1.14.1",
+    "connect-mongo": "^0.8.2",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "moment": "^2.10.6",
+    "mongodb": "^4.2.2",
+    "mongoose": "^4.1.12"
   }
 }
