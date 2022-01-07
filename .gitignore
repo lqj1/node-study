@@ -40,7 +40,9 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+# mongodb的data文件夹下的数据和日志存放目录
 db/
+log/
 # TypeScript v1 declaration files
 typings/
 
