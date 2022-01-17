@@ -61,7 +61,7 @@ http
     // 当用户请求 /item 时，显示新闻详情 - get请求
     // 当用户请求 /submit 时，显示添加新闻页面 - get请求
     // 当用户请求 /add 时，将用户提交的新闻保存到 data.json 文件中 - get请求
-    // 当用户请求 /add 时，将用户提交的新闻保存到 data.json 文件中 - get请求
+    // 当用户请求 /add 时，将用户提交的新闻保存到 data_post.json 文件中 - post请求
     req.url = req.url.toLowerCase(); // 将大写字符转成小写
     req.method = req.method.toLowerCase();
     // 通过url模块，调用url.parse()方法解析用户请求的url(req.url)
@@ -86,7 +86,9 @@ http
       // 1. 读取 submit.html 并返回
       res.render(path.join(__dirname, 'views', 'submit.html'));
     } else if (req.url === '/item' && req.method === 'get') {
-      // 读取 detail.html 并返回
+      // 1. 获取当前用户请求的新闻id
+      // 2. 获取data.json文件中的数据，根据id找到对应的新闻
+      // 3. 调用 res.render() 函数进行模板引擎的渲染
       res.render(path.join(__dirname, 'views', 'details.html'));
     } else if (req.url.startsWith('/add') && req.method === 'get') {
       // 表示 get 方法提交一条新闻
