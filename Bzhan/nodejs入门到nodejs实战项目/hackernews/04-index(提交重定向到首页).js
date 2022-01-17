@@ -1,6 +1,7 @@
-// 当前项目（包）的入口文件
-// 封装一个 render() 函数
-// 将render函数挂载到 res 对象上，可以通过 res.render() 来访问
+// 01.当前项目（包）的入口文件
+// 02.封装一个 render() 函数
+// 03.将render函数挂载到 res 对象上，可以通过 res.render() 来访问
+// 04.实现get方式添加新闻
 // 1. 加载模块
 // http服务请求模块
 var http = require('http');
@@ -37,6 +38,9 @@ http
     // 当用户请求 /add 时，将用户提交的新闻保存到 data.json 文件中 - get请求
     req.url = req.url.toLowerCase(); // 将大写字符转成小写
     req.method = req.method.toLowerCase();
+    // 通过url模块，调用url.parse()方法解析用户请求的url(req.url)
+    var urlObj = url.parse(req.url, true);
+    // console.log(urlObj);
     // 先根据用户请求的路径（路由），将对应的html页面显示出来
     if (req.url === '/' || (req.url === '/index' && req.method === 'get')) {
       // 1. 读取 index.html 并返回
@@ -51,8 +55,26 @@ http
       // 表示 get 方法提交一条新闻
       // 要获取用户 get 提交的数据，需要用到 url 模块（这个模块是nodejs内置模块）
       // 1. 获取用户 get 提交过来的新闻数据
+      // urlObj.query.title;
+      // urlObj.query.url;
+      // urlObj.query.text;
       // 2. 把用户提交的新闻数据保存到 data.json 文件中
-      // 3. 跳转到新闻列表页
+      var list = [];
+      list.push(urlObj.query);
+      // 把list数组中的数据写入到data.json文件中
+      fs.writeFile(path.join(__dirname, 'data', 'data.json'), JSON.stringify(list), function (err) {
+        if (err) {
+          throw err;
+        }
+        console.log('ok ');
+        // 设置响应报文头，通过响应报文头告诉浏览器，执行一次页面跳转操作
+        // 3. 跳转到新闻列表页
+        // 重定向，服务器告诉浏览器跳转
+        res.statusCode = 302;
+        res.statusMessage = 'found';
+        res.setHeader('Location', '/');
+        res.end();
+      });
     } else if (req.url === '/add' && req.method === 'post') {
       // 表示 post 方法提交一条新闻
     } else if (req.url.startsWith('/resources') && req.method === 'get') {
