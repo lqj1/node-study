@@ -113,6 +113,15 @@ server2.on('request', function (req, res) {
     - 进入 redis 文件夹，执行`redis-server.exe redis.windows.conf`
 - drift 是参考源码，my-drift 是实践的项目
 
+## Bzhan
+
 ### nodejs 入门到 nodejs 实战项目--hackernews
 
+#### 运行
+
+1. 进入到`nodejs入门到nodejs实战项目/hackernews`文件夹，然后运行`npm install`
+2. 通过`node 文件名`运行各个案例，根据顺序依次完善整个项目
+
 #### 库 underscore.js 的使用
+
+> 主要用于将接受提交的数据，然后利用 html 文档作为模板，再通过参数传入，最后通过服务器返回渲染到 html 页面
